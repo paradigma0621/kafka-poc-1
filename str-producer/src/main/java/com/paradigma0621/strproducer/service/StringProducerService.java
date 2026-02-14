@@ -13,6 +13,7 @@ public class StringProducerService {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(String message) {
+        log.info("Send message {}", message );
         kafkaTemplate.send("str-topic", message); // "str-topic" is the name of the topic to which the message will be sent
                                                     // It can be as simple as this, or you can add details as shown below.
         /*
