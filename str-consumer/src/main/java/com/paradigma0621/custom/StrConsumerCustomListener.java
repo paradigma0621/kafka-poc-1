@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @KafkaListener
 public @interface StrConsumerCustomListener {
-
+    // This class defines custom annotations to make the code in StrConsumerListener.java cleaner.
     @AliasFor(annotation = KafkaListener.class, attribute = "topics")
     String[] topics() default "str-topic";
 

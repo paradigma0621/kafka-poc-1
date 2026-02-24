@@ -11,18 +11,40 @@ import org.springframework.stereotype.Component;
 public class StrConsumerListener {
 
     @StrConsumerCustomListener(groupId = "group-1")
-    public void create(String message) {
+    public void create2(String message) {
         log.info("CREATE ::: Receive message {}", message);
     }
 
     @StrConsumerCustomListener(groupId = "group-1")
-    public void log(String message) {
+    public void log2(String message) {
         log.info("LOG ::: Receive message {}", message);
     }
 
     @StrConsumerCustomListener(groupId = "group-2")
-    public void history(String message) {
+    public void history2(String message) {
         log.info("HISTORY ::: Receive message {}", message);
+    }
+
+    // The code above uses custom annotations defined in StrConsumerCustomListener.java.
+
+    // The code below does not use custom annotations.
+    @KafkaListener(groupId = "group-a1", topicPartitions = {
+            @TopicPartition(topic = "str-another-topic", partitions = {"0"}) },
+            containerFactory = "strContainerFactory")
+    public void create(String message) {
+        log.info("CREATE ANOTHER ::: Receive message {}", message);
+    }
+
+    @KafkaListener(groupId = "group-a1", topicPartitions = {
+                    @TopicPartition(topic = "str-another-topic", partitions = {"1","2","3"}) },
+                    containerFactory = "strContainerFactory")
+    public void log(String message) {
+        log.info("LOG ANOTHER ::: Receive message {}", message);
+    }
+
+    @KafkaListener(groupId = "group-a2", topics = "str-another-topic", containerFactory = "strContainerFactory")
+    public void history(String message) {
+        log.info("HISTORY ANOTHER ::: Receive message {}", message);
     }
 
 }

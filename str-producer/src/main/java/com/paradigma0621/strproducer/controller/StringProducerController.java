@@ -16,9 +16,16 @@ public class StringProducerController {
 
     private final StringProducerService producerService;
 
-    @PostMapping
-    public ResponseEntity<?> sendMessage(@RequestBody String message) {
+    @PostMapping(value = "/main-topic")
+    public ResponseEntity<Void> sendMessage(@RequestBody String message) {
         producerService.sendMessage(message);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PostMapping(value = "/another-topic")
+    public ResponseEntity<Void> sendMessageAnotherTopic(@RequestBody String message) {
+        producerService.sendMessageAnotherTopic(message);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 }
