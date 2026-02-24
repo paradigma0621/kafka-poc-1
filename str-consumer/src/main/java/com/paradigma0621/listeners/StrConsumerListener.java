@@ -27,7 +27,14 @@ public class StrConsumerListener {
 
     // The code above uses custom annotations defined in StrConsumerCustomListener.java.
 
-    // The code below does not use custom annotations.
+    // The message undergoes business logic processing before reaching this listener
+    @StrConsumerCustomListener(groupId = "group-3", topics = "str-topic",
+            containerFactory = "validMessageContainerFactory")
+    public void historyWithPreviousAnalysis(String message) {
+        log.info("WITH SOME ANALYSIS BEFORE THIS MESSAGE ::: Receive message {}", message);
+    }
+
+    // Unlike the code at the beginning of this class, the code below does not use custom annotations.
     @KafkaListener(groupId = "group-a1", topicPartitions = {
             @TopicPartition(topic = "str-another-topic", partitions = {"0"}) },
             containerFactory = "strContainerFactory")
