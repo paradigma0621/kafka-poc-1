@@ -50,11 +50,11 @@ public class StringConsumerConfig {
     }
 
     private RecordInterceptor<String, String> validMessage() {
-        return record -> {
-            if(record.value().contains("Teste")) // Or any other business logic as needed.
+        return consumerRecord -> {
+            if(consumerRecord.value().contains("Teste")) // Or any other business logic as needed.
                 log.info("ANALYSIS: Verified that contains the word 'Teste'");
 
-            return record;
+            return consumerRecord;
         };
     }
 }

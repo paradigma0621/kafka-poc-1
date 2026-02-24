@@ -22,4 +22,7 @@ public @interface StrConsumerCustomListener {
     @AliasFor(annotation = KafkaListener.class, attribute = "groupId")
     String groupId() default "";
 
+    @AliasFor(annotation = KafkaListener.class, attribute = "errorHandler") // The KafkaListener.class annotation
+                                                            // defines the attribute: String errorHandler() default "".
+    String errorHandler() default "errorCustomHandler"; // Reference to the class ErrorCustomHandler.java
 }

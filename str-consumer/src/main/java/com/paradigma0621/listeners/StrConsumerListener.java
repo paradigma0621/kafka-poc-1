@@ -1,6 +1,7 @@
 package com.paradigma0621.listeners;
 
 import com.paradigma0621.custom.StrConsumerCustomListener;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.TopicPartition;
@@ -10,9 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class StrConsumerListener {
 
-    @StrConsumerCustomListener(groupId = "group-1")
-    public void create2(String message) {
+    @SneakyThrows // Equivalent to: public void createWithException(String message) throws Exception {
+    @StrConsumerCustomListener(groupId = "group-1") // Also provides the errorHandler() attribute
+                                                    // defined in StrConsumerCustomListener.java
+    public void createWithException(String message) {
         log.info("CREATE ::: Receive message {}", message);
+        throw new IllegalArgumentException("EXCEPTION..."); // Without Kafka error handling, multiple error messages
+                                                            // would be logged.
     }
 
     @StrConsumerCustomListener(groupId = "group-1")
