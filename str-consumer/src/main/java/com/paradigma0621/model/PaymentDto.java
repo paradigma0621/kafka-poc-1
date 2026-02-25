@@ -1,4 +1,4 @@
-package com.paradigma0621.strproducer.model;
+package com.paradigma0621.model;
 
 import lombok.Getter;
 import lombok.ToString;
